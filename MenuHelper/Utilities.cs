@@ -31,7 +31,7 @@
 
                 if (!isValidInput)
                 {
-                    Console.WriteLine(error ?? "Invalid input format.");
+                    Console.WriteLine(error == "" ? "Invalid input format." : error);
                 }
             } while (!isValidInput);
 
