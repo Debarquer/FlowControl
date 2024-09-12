@@ -1,10 +1,4 @@
 ﻿using MenuHelper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FlowControl
 {
@@ -18,18 +12,31 @@ namespace FlowControl
 
         public void PrintTicketPrice()
         {
-            int ticketPrice = CalculateTicketPrice();
+            int nrOfPeople = Utilities.PromptUserForValidNumber("Please enter number of guests: ");
 
-            Console.WriteLine($"Ticket price: {ticketPrice}");
+            int ticketPrice = CalculateTicketPrice(nrOfPeople);
+
+            Console.WriteLine($"Number of guests: {nrOfPeople} Ticket price: {ticketPrice}");
         }
 
-        private int CalculateTicketPrice()
+        private int CalculateTicketPrice(int nrOfPeople)
         {
             int ticketPrice = 0;
 
-            int age = PromptUserForAge();
 
-            switch(age)
+            for(int i = 0; i < nrOfPeople; i++)
+            {
+                int age = PromptUserForAge();
+                ticketPrice += GetTicketPriceFromAge(age);
+            }
+
+            return ticketPrice;
+        }
+
+        private int GetTicketPriceFromAge(int age)
+        {
+            int ticketPrice;
+            switch (age)
             {
                 case < 20:
                     ticketPrice = youthPrice;
