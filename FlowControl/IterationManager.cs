@@ -1,39 +1,45 @@
 ﻿using MenuHelper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace FlowControl
+namespace FlowControl;
+
+/// <summary>
+/// A class for testing various iteration methods.
+/// </summary>
+/// <param name="repetitions">The number of iterations used in the RepeatMultipleTimes method.</param>
+internal class IterationManager(int repetitions = 10)
 {
-    internal class IterationManager(int repetitions = 10)
+    private int Repetitions { get; set; } = repetitions;
+
+    /// <summary>
+    /// Prompts the user for a string.
+    /// Prints the string to the console Repetitions number of times.
+    /// </summary>
+    public void RepeatMultipleTimes()
     {
-        int Repetitions { get; set; } = repetitions;
+        string input = Utilities.PromptUserForString("Please enter a string: ");
 
-        public void RepeatTenTimes()
+        for(int i = 0; i < Repetitions; i++)
         {
-            string input = Utilities.PromptUserForString("Please enter a string: ");
-
-            for(int i = 0; i < Repetitions; i++)
-            {
-                Console.Write($"{i + 1}. {input}" + (i == Repetitions-1 ? "" : ", "));
-            }
-            Console.WriteLine();
+            Console.Write($"{i + 1}. {input}" + (i == Repetitions-1 ? "" : ", "));
         }
+        Console.WriteLine();
+    }
 
-        public void PrintThirdWord()
-        {
-            string input = Utilities.PromptUserForValidInput(
-                "Please enter a string, containing at least 3 words seperated by spaces: ",
-                (string s) => s.Split(' ').Length >= 3,
-                "Please enter at least 3 words.");
+    /// <summary>
+    /// Prompts the user for a string, containing at least 3 words separated by spaces.
+    /// Prints the third word to the console.
+    /// </summary>
+    public void PrintThirdWord()
+    {
+        string input = Utilities.PromptUserForValidInput(
+            "Please enter a string, containing at least 3 words separated by spaces: ",
+            (string s) => s.Split(' ').Length >= 3,
+            "Please enter at least 3 words.");
 
-            var split = input.Split(' ');
-            string thirdWord = split[2];
+        var split = input.Split(' ');
+        string thirdWord = split[2];
 
-            Console.WriteLine($"Full string: {input}");
-            Console.WriteLine($"The third word: {thirdWord}");
-        }
+        Console.WriteLine($"Full string: {input}");
+        Console.WriteLine($"The third word: {thirdWord}");
     }
 }

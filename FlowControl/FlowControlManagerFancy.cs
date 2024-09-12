@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace FlowControl;
 
-namespace FlowControl
+/// <summary>
+/// A more fancy version of flow control, using the MenuHelper project.
+/// </summary>
+internal class FlowControlManagerFancy : IFlowControlManager
 {
-    internal class FlowControlManagerFancy : IFlowControlManager
+    /// <summary>
+    /// Function to print a menu and manage user input.
+    /// </summary>
+    public void ManageInput()
     {
-        public void ManageInput()
-        {
-            throw new NotImplementedException();
-        }
+        throw new NotImplementedException();
     }
 }

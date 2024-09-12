@@ -1,60 +1,74 @@
 ﻿using MenuHelper;
 
-namespace FlowControl
+namespace FlowControl;
+
+/// <summary>
+/// A class for calculating and displaying ticket prices.
+/// </summary>
+internal class CinemaTicketManager
 {
-    internal class CinemaTicketManager
+    readonly Menu menu = new();
+
+    private const int youthPrice = 80;
+    private const int pensionersPrice = 90;
+    private const int defaultPrice = 120;
+
+    private int nrOfPeople = 0;
+    private int ticketPrice = 0;
+
+    /// <summary>
+    /// Prints the ticket price to the console.
+    /// </summary>
+    public void PrintTicketPrice() => Console.WriteLine($"Number of guests: {nrOfPeople} Ticket price: {ticketPrice}");
+
+    /// <summary>
+    /// Prompts the user for data: number of guests and age of guests.
+    /// Calculates and prints the total ticket price to the console.
+    /// </summary>
+    /// <param name="nrOfPeople"></param>
+    public void CalculateTicketPrice()
     {
-        Menu menu = new();
+        nrOfPeople = Utilities.PromptUserForValidNumber("Please enter number of guests: ");
 
-        const int youthPrice = 80;
-        const int pensionersPrice = 90;
-        const int defaultPrice = 120;
+        ticketPrice = 0;
 
-        public void PrintTicketPrice()
+        for(int i = 0; i < nrOfPeople; i++)
         {
-            int nrOfPeople = Utilities.PromptUserForValidNumber("Please enter number of guests: ");
+            int age = PromptUserForAge();
+            ticketPrice += GetTicketPriceFromAge(age);
+        }
+    }
 
-            int ticketPrice = CalculateTicketPrice(nrOfPeople);
-
-            Console.WriteLine($"Number of guests: {nrOfPeople} Ticket price: {ticketPrice}");
+    /// <summary>
+    /// Returns the ticket price based on the age.
+    /// </summary>
+    /// <param name="age">The age of the guest.</param>
+    /// <returns>The ticket price.</returns>
+    private int GetTicketPriceFromAge(int age)
+    {
+        int ticketPrice;
+        switch (age)
+        {
+            case < 20:
+                ticketPrice = youthPrice;
+                break;
+            case > 64:
+                ticketPrice = pensionersPrice;
+                break;
+            default:
+                ticketPrice = defaultPrice;
+                break;
         }
 
-        private int CalculateTicketPrice(int nrOfPeople)
-        {
-            int ticketPrice = 0;
+        return ticketPrice;
+    }
 
-
-            for(int i = 0; i < nrOfPeople; i++)
-            {
-                int age = PromptUserForAge();
-                ticketPrice += GetTicketPriceFromAge(age);
-            }
-
-            return ticketPrice;
-        }
-
-        private int GetTicketPriceFromAge(int age)
-        {
-            int ticketPrice;
-            switch (age)
-            {
-                case < 20:
-                    ticketPrice = youthPrice;
-                    break;
-                case > 64:
-                    ticketPrice = pensionersPrice;
-                    break;
-                default:
-                    ticketPrice = defaultPrice;
-                    break;
-            }
-
-            return ticketPrice;
-        }
-
-        private int PromptUserForAge()
-        {
-            return Utilities.PromptUserForValidNumber("Please enter your age: ");
-        }
+    /// <summary>
+    /// Prompts the user to enter their age and checks for validation.
+    /// </summary>
+    /// <returns>The age as a valid integer.</returns>
+    private int PromptUserForAge()
+    {
+        return Utilities.PromptUserForValidNumber("Please enter your age: ");
     }
 }
