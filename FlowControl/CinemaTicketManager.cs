@@ -9,9 +9,35 @@ internal class CinemaTicketManager
 {
     readonly Menu menu = new();
 
+    #region TicketPriceOptionA
+    private const int childPrice = 0;
     private const int youthPrice = 80;
     private const int pensionersPrice = 90;
+    private const int oldAgePrice = 0;
     private const int defaultPrice = 120;
+    #endregion
+
+    #region TicketPriceOptionB
+    private struct TicketPrice(int price, int minimumAge, int maximumAge)
+    {
+        public int Price { get; set; } = price;
+        public int MinimumAge { get; set; } = minimumAge;
+        public int MaximumAge { get; set; } = maximumAge;
+
+        public bool IsInAgeRange(int age)
+        {
+            return age >= MinimumAge && age < MaximumAge;
+        }
+    }
+
+    private TicketPrice[] ticketPrices = [
+        new TicketPrice(0, 0, 5),
+        new TicketPrice(80, 5, 20),
+        new TicketPrice(120, 20, 65),
+        new TicketPrice(90, 64, 101),
+        new TicketPrice(90, 101, 1000),
+    ];
+    #endregion
 
     private int nrOfPeople = 0;
     private int ticketPrice = 0;
@@ -35,7 +61,8 @@ internal class CinemaTicketManager
         for(int i = 0; i < nrOfPeople; i++)
         {
             int age = PromptUserForAge();
-            ticketPrice += GetTicketPriceFromAge(age);
+            ticketPrice += GetTicketPriceFromAgeOptionA(age);
+            //ticketPrice += GetTicketPriceFromAgeOptionB(age);
         }
     }
 
@@ -44,13 +71,19 @@ internal class CinemaTicketManager
     /// </summary>
     /// <param name="age">The age of the guest.</param>
     /// <returns>The ticket price.</returns>
-    private int GetTicketPriceFromAge(int age)
+    private int GetTicketPriceFromAgeOptionA(int age)
     {
         int ticketPrice;
         switch (age)
         {
+            case < 5:
+                ticketPrice = childPrice; 
+                break;
             case < 20:
                 ticketPrice = youthPrice;
+                break;
+            case > 100:
+                ticketPrice = oldAgePrice;
                 break;
             case > 64:
                 ticketPrice = pensionersPrice;
@@ -61,6 +94,22 @@ internal class CinemaTicketManager
         }
 
         return ticketPrice;
+    }
+
+    /// <summary>
+    /// Alternative GetTicketPriceFromAge method using a foreach loop instead of a switch.
+    /// </summary>
+    /// <param name="age">The age of the guest.</param>
+    /// <returns>The ticket price.</returns>
+    /// <exception cref="Exception">If the age is not found in the ticketPrices list.</exception>
+    private int GetTicketPriceFromAgeOptionB(int age)
+    {
+        foreach(TicketPrice ticketPrice in ticketPrices)
+        {
+            if (ticketPrice.IsInAgeRange(age)) return ticketPrice.Price;
+        }
+
+        throw new Exception("GetTicketPriceFromAgeOptionB error: Invalid age");
     }
 
     /// <summary>
