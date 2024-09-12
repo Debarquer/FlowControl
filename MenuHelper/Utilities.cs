@@ -19,7 +19,7 @@
         /// <param name="prompt"></param>
         /// <param name="validator">Function used to validate user input.</param>
         /// <returns></returns>
-        private static string PromptUserForValidInput(string prompt, Func<string, bool> validator)
+        public static string PromptUserForValidInput(string prompt, Func<string, bool> validator, string error = "")
         {
             string input = "";
             bool isValidInput = false;
@@ -31,7 +31,7 @@
 
                 if (!isValidInput)
                 {
-                    Console.WriteLine("Invalid input format.");
+                    Console.WriteLine(error ?? "Invalid input format.");
                 }
             } while (!isValidInput);
 
