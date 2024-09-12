@@ -1,4 +1,4 @@
-﻿namespace FlowControl;
+﻿namespace FlowControl.FlowControlManager;
 
 /// <summary>
 /// A class for managing the menu and user input.

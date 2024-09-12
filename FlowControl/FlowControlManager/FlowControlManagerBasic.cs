@@ -1,4 +1,4 @@
-﻿namespace FlowControl;
+﻿namespace FlowControl.FlowControlManager;
 
 /// <summary>
 /// A basic version of flow control.

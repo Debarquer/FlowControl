@@ -1,10 +1,10 @@
-﻿using FlowControl;
+﻿using FlowControl.FlowControlManager;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
-        IFlowControlManager controlManager = new FlowControlManagerBasic();
+        IFlowControlManager controlManager = new FlowControlManagerFancy();
         controlManager.ManageInput();
     }
 }
