@@ -36,7 +36,7 @@ internal class IterationManager(int repetitions = 10)
             (string s) => s.Split(' ').Length >= 3,
             "Please enter at least 3 words.");
 
-        var split = input.Split(' ');
+        var split = input.Split(' ').Where(x => x != "").ToArray();
         string thirdWord = split[2];
 
         Console.WriteLine($"Full string: {input}");
