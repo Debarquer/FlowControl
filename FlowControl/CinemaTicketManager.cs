@@ -67,11 +67,47 @@ internal class CinemaTicketManager
     }
 
     /// <summary>
-    /// Returns the ticket price based on the age.
+    /// Returns the ticket price based on the age using nest if-else statements.
     /// </summary>
     /// <param name="age">The age of the guest.</param>
     /// <returns>The ticket price.</returns>
     private int GetTicketPriceFromAgeOptionA(int age)
+    {
+        if (age > 100)
+        {
+            return oldAgePrice;
+        }
+        else
+        {
+            if (age > 64)
+            {
+                return pensionersPrice;
+            }
+            else
+            {
+                if (age < 20)
+                {
+                    if (age < 5)
+                    {
+                        return childPrice;
+                    }
+                    else
+                    {
+                        return youthPrice;
+                    }
+                }
+            }
+        }
+
+        return defaultPrice;
+    }
+
+    /// <summary>
+    /// Returns the ticket price based on the age.
+    /// </summary>
+    /// <param name="age">The age of the guest.</param>
+    /// <returns>The ticket price.</returns>
+    private int GetTicketPriceFromAgeOptionB(int age)
     {
         int ticketPrice;
         switch (age)
@@ -102,7 +138,7 @@ internal class CinemaTicketManager
     /// <param name="age">The age of the guest.</param>
     /// <returns>The ticket price.</returns>
     /// <exception cref="Exception">If the age is not found in the ticketPrices list.</exception>
-    private int GetTicketPriceFromAgeOptionB(int age)
+    private int GetTicketPriceFromAgeOptionC(int age)
     {
         foreach(TicketPrice ticketPrice in ticketPrices)
         {
